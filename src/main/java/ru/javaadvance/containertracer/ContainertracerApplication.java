@@ -6,13 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication
-@RestController
+
 public class ContainertracerApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ContainertracerApplication.class, args);
-
+    public static void main(String[] args) {SpringApplication.run(ContainertracerApplication.class, args);
     }
-
-
 }

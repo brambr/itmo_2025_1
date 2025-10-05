@@ -1,8 +1,7 @@
 package ru.javaadvance.containertracer.controler.dto;
-
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Getter
 @Setter
@@ -15,6 +14,4 @@ public class CntrDto {
     private String type;
     private Integer tareWeight;
     private Integer maxPayLoad;
-
-
 }

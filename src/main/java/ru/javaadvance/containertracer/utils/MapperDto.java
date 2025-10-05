@@ -2,7 +2,12 @@ package ru.javaadvance.containertracer.utils;
 
 import org.springframework.stereotype.Component;
 import ru.javaadvance.containertracer.controler.dto.CntrDto;
+import ru.javaadvance.containertracer.controler.dto.CntrNumberDto;
 import ru.javaadvance.containertracer.repository.Cntr;
+import ru.javaadvance.containertracer.repository.CntrNumber;
+
+import static javax.swing.text.html.HTML.Attribute.N;
+
 @Component
 public class MapperDto {
 
@@ -29,5 +34,10 @@ public class MapperDto {
         cntr.setSize(cntrDto.getSize());
         return cntr;
     }
-
+    public CntrNumber cntrNumberDtoToCntrNumber(CntrNumberDto cntrnumberDto){
+        CntrNumber cntrNumber = new CntrNumber();
+        cntrNumber.setCntrNumber(cntrnumberDto.getCntrNnumberDto());
+        cntrNumber.setId(cntrnumberDto.getId());
+        return cntrNumber;
+    }
 }

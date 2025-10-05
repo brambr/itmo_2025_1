@@ -1,4 +1,4 @@
-package ru.javaadvance.containertracer.service.Imp;
+package ru.javaadvance.containertracer.service.imp;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -11,9 +11,8 @@ public class TestCntrNumberValidatorImp {
     @DisplayName("-тест  метода isValid на Null")
     @Test
     public void testIsValidIfNumberNull() {
-        String number = null;
         CntrNumberValidator validator = new CntrNumberValidatorImp();
-        Assertions.assertFalse(validator.isValid(number));
+        Assertions.assertFalse(validator.isValid(null));
     }
 
     @DisplayName("-тест  метода isValid если префикс не того формата")
