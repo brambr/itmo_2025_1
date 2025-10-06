@@ -1,16 +1,26 @@
 package ru.javaadvance.containertracer.controler;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.PutMapping;
 import ru.javaadvance.containertracer.controler.dto.CntrDto;
-import ru.javaadvance.containertracer.mappers.CntrMapper;
 import ru.javaadvance.containertracer.repository.Cntr;
 import ru.javaadvance.containertracer.service.imp.CntrServiceImp;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,17 +28,23 @@ import ru.javaadvance.containertracer.service.imp.CntrServiceImp;
 @Validated
 public class CntrController {
     private final CntrServiceImp cntrService;
-    private final CntrMapper cntrMapper;
+    private final ModelMapper mapper;
+
 
     @GetMapping
-    public Page<Cntr> getCntr(Pageable page) {
-        
-        return  cntrService.findAll(page);//не смог через марер прогнать page
+//    public Page<Cntr> getCntr(Pageable page) {
+//        return cntrService.findAll(page);//не смог через марер прогнать page
+//    }
+    public List<CntrDto> getCntrDto() {
+       return cntrService.findAll().stream().map( cntr-> mapper.map(cntr, CntrDto.class)).toList();
     }
 
+
     @PostMapping
-    public Cntr create( @NotNull @RequestBody CntrDto cntrDto) {
-        return cntrService.create(cntrMapper.toEntity(cntrDto));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cntr create(@NotNull @RequestBody CntrDto cntrDto) {
+
+       return cntrService.create(mapper.map(cntrDto, Cntr.class));
     }
 
     @DeleteMapping(path = "{id}")
@@ -37,8 +53,8 @@ public class CntrController {
     }
 
     @PutMapping()
-    public void update( @RequestBody CntrDto cntrDto) {
-        cntrService.update(cntrMapper.toEntity(cntrDto));
+    public void update(@Valid @RequestBody CntrDto cntrDto) {
+        cntrService.update(mapper.map(cntrDto, Cntr.class));
     }
 
 }

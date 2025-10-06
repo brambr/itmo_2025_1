@@ -12,6 +12,7 @@ import ru.javaadvance.containertracer.service.CntrNumberValidator;
 import ru.javaadvance.containertracer.service.CntrService;
 import ru.javaadvance.containertracer.validators.Validator;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,8 +23,8 @@ public class CntrServiceImp implements CntrService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Cntr> findAll(Pageable page) {
-        return cntrRepository.findAll(page);
+    public List<Cntr> findAll() {
+        return cntrRepository.findAll();
     }
 
     @Transactional
@@ -59,7 +60,6 @@ public class CntrServiceImp implements CntrService {
     public void update(Cntr cntrIn) {
         try {
             Validator.validateCntr(cntrIn);
-            System.out.println("Cntr number is valid!");
             Optional<Cntr> optionalCntr = cntrRepository.findById(cntrIn.getId());
             if (optionalCntr.isEmpty()) {
                 throw new IllegalStateException("Контейнер с таким ID отсутсвует");
@@ -70,16 +70,12 @@ public class CntrServiceImp implements CntrService {
                 if (cntrFindindByNumeber.isPresent()) {
                     throw new IllegalStateException("Контейнер с таким номером уже существует");
                 }
-
             } else {
                 cntrOpt.setNumber(cntrIn.getNumber().toUpperCase());
             }
             cntrRepository.save(cntrOpt);
         } catch (IllegalArgumentException | IllegalAccessException ex) {
-            System.out.println("Cntr number is not valid: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
-
     }
-
-
 }

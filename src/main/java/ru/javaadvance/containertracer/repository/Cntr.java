@@ -1,8 +1,13 @@
 package ru.javaadvance.containertracer.repository;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import lombok.Data;
-import ru.javaadvance.containertracer.validators.CntrNumberValidation;
+import ru.javaadvance.containertracer.validators.CntrNumberVal;
 
 
 @Entity
@@ -12,7 +17,7 @@ public class Cntr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CntrNumberValidation(message = "error")
+    @CntrNumberVal(message = "Номер контейнера не коректный")
     private String number;
     private String iso;
     private String size;
