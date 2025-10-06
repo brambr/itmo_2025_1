@@ -9,11 +9,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = CntrNumberValidator.class)
+@Constraint(validatedBy = CntrNumValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CntrNumberVal {
     String message() default "Invalid format of container number";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

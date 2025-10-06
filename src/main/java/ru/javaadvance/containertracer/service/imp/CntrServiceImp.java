@@ -1,16 +1,13 @@
 package ru.javaadvance.containertracer.service.imp;
 
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.hibernate.InstantiationException;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.javaadvance.containertracer.repository.Cntr;
 import ru.javaadvance.containertracer.repository.CntrRepository;
-import ru.javaadvance.containertracer.service.CntrNumberValidator;
 import ru.javaadvance.containertracer.service.CntrService;
-import ru.javaadvance.containertracer.validators.Validator;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,15 +31,8 @@ public class CntrServiceImp implements CntrService {
         if (optionalCntr.isPresent()) {
             throw new IllegalStateException("Контейнер с таким номером уже существует");
         }
-        try {
-            Validator.validateCntr(cntr);
-            System.out.println("Container number is valid!");
-            cntr.setNumber(cntr.getNumber().toUpperCase());
-            return cntrRepository.save(cntr);
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
-            System.out.println("Container number is not valid: " + ex.getMessage());
-        }
-        return null;
+        cntr.setNumber(cntr.getNumber().toUpperCase());
+        return cntrRepository.save(cntr);
     }
 
     @Transactional
@@ -59,7 +49,6 @@ public class CntrServiceImp implements CntrService {
     @Override
     public void update(Cntr cntrIn) {
         try {
-            Validator.validateCntr(cntrIn);
             Optional<Cntr> optionalCntr = cntrRepository.findById(cntrIn.getId());
             if (optionalCntr.isEmpty()) {
                 throw new IllegalStateException("Контейнер с таким ID отсутсвует");
@@ -74,7 +63,7 @@ public class CntrServiceImp implements CntrService {
                 cntrOpt.setNumber(cntrIn.getNumber().toUpperCase());
             }
             cntrRepository.save(cntrOpt);
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
+        } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
         }
     }

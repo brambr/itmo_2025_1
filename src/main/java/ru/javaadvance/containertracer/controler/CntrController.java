@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,6 @@ public class CntrController {
 
 
     @GetMapping
-//    public Page<Cntr> getCntr(Pageable page) {
-//        return cntrService.findAll(page);//не смог через марер прогнать page
-//    }
     public List<CntrDto> getCntrDto() {
        return cntrService.findAll().stream().map( cntr-> mapper.map(cntr, CntrDto.class)).toList();
     }
@@ -42,14 +40,16 @@ public class CntrController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cntr create(@NotNull @RequestBody CntrDto cntrDto) {
+    public Cntr create(@NotNull @Valid @RequestBody CntrDto cntrDto) {
 
        return cntrService.create(mapper.map(cntrDto, Cntr.class));
     }
 
     @DeleteMapping(path = "{id}")
-    public void delete(@PathVariable Long id) {
+
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         cntrService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping()
