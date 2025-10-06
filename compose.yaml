@@ -1,0 +1,17 @@
+
+volumes:
+  cntr_tracer:
+
+services:
+  my_db:
+    image: 'postgres:latest'
+    volumes:
+      - cntr_tracer:/var/lib/postgresql/data
+    environment:
+      - 'POSTGRES_DB=my_db'
+      - 'POSTGRES_USER=user'
+      - 'POSTGRES_PASSWORD=pass'
+
+    ports:
+      - "5432:5432"
+
