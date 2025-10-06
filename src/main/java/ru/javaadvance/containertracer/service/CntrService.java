@@ -4,8 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.javaadvance.containertracer.repository.Cntr;
 
-import java.util.List;
-
 public interface CntrService {
     Page<Cntr> findAll(Pageable page);
 
@@ -13,6 +11,6 @@ public interface CntrService {
 
     void delete(Long id);
 
-    void update(Cntr cntrIn);
+    void update(Cntr cntr);
 }
 

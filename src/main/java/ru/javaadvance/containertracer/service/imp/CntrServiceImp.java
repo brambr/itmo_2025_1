@@ -1,32 +1,28 @@
 package ru.javaadvance.containertracer.service.imp;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.crossstore.ChangeSetPersister;
+
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.javaadvance.containertracer.repository.Cntr;
 import ru.javaadvance.containertracer.repository.CntrRepository;
 import ru.javaadvance.containertracer.service.CntrNumberValidator;
 import ru.javaadvance.containertracer.service.CntrService;
+import ru.javaadvance.containertracer.validators.Validator;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CntrServiceImp implements CntrService {
     private final CntrRepository cntrRepository;
-    private final CntrNumberValidator cntrNumberValidator;
+
 
     @Override
-    @Transactional(readOnly=true)
-    public Page<Cntr> findAll(Pageable page ) {
-       // Pageable page = PageRequest.of(pageNumber ,pageSize);
+    @Transactional(readOnly = true)
+    public Page<Cntr> findAll(Pageable page) {
         return cntrRepository.findAll(page);
     }
 
@@ -37,12 +33,15 @@ public class CntrServiceImp implements CntrService {
         if (optionalCntr.isPresent()) {
             throw new IllegalStateException("Контейнер с таким номером уже существует");
         }
-        if (cntrNumberValidator.isValid(cntr.getNumber())) {
+        try {
+            Validator.validateCntr(cntr);
+            System.out.println("Container number is valid!");
             cntr.setNumber(cntr.getNumber().toUpperCase());
             return cntrRepository.save(cntr);
-        } else {
-            throw new IllegalStateException("Номер контейнера не соответствует стандарту");
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            System.out.println("Container number is not valid: " + ex.getMessage());
         }
+        return null;
     }
 
     @Transactional
@@ -58,22 +57,28 @@ public class CntrServiceImp implements CntrService {
     @Transactional
     @Override
     public void update(Cntr cntrIn) {
-
-        Optional<Cntr> optionalCntr = cntrRepository.findById(cntrIn.getId());
-        if (optionalCntr.isEmpty()) {
-            throw new IllegalStateException("Контейнер с таким ID отсутсвует");
-        }
-        Cntr cntrOpt = optionalCntr.get();
-        if (cntrIn.getNumber()!= null && cntrIn.getNumber().equals(cntrOpt.getNumber())) {
-            Optional<Cntr> cntrFindindByNumeber = Optional.ofNullable(cntrRepository.findByNumber(cntrIn.getNumber()));
-            if (cntrFindindByNumeber.isPresent()) {
-                throw new IllegalStateException("Контейнер с таким номером уже существует");
+        try {
+            Validator.validateCntr(cntrIn);
+            System.out.println("Cntr number is valid!");
+            Optional<Cntr> optionalCntr = cntrRepository.findById(cntrIn.getId());
+            if (optionalCntr.isEmpty()) {
+                throw new IllegalStateException("Контейнер с таким ID отсутсвует");
             }
+            Cntr cntrOpt = optionalCntr.get();
+            if (cntrIn.getNumber() != null && cntrIn.getNumber().equals(cntrOpt.getNumber())) {
+                Optional<Cntr> cntrFindindByNumeber = Optional.ofNullable(cntrRepository.findByNumber(cntrIn.getNumber()));
+                if (cntrFindindByNumeber.isPresent()) {
+                    throw new IllegalStateException("Контейнер с таким номером уже существует");
+                }
 
-        } else {
-            cntrOpt.setNumber(cntrIn.getNumber());
+            } else {
+                cntrOpt.setNumber(cntrIn.getNumber().toUpperCase());
+            }
+            cntrRepository.save(cntrOpt);
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            System.out.println("Cntr number is not valid: " + ex.getMessage());
         }
-        cntrRepository.save(cntrOpt);
+
     }
 
 

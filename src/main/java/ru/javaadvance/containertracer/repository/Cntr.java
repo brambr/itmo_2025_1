@@ -2,6 +2,7 @@ package ru.javaadvance.containertracer.repository;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import ru.javaadvance.containertracer.validators.CntrNumberValidation;
 
 
 @Entity
@@ -11,6 +12,7 @@ public class Cntr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @CntrNumberValidation(message = "error")
     private String number;
     private String iso;
     private String size;
