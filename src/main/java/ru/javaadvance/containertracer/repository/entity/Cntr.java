@@ -1,4 +1,4 @@
-package ru.javaadvance.containertracer.repository;
+package ru.javaadvance.containertracer.repository.entity;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;

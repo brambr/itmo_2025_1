@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PutMapping;
 import ru.javaadvance.containertracer.controler.dto.CntrDto;
-import ru.javaadvance.containertracer.repository.Cntr;
+import ru.javaadvance.containertracer.repository.entity.Cntr;
 import ru.javaadvance.containertracer.service.imp.CntrServiceImp;
 
 import java.util.List;
