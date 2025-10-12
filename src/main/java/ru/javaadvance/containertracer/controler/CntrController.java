@@ -25,7 +25,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "api/cntrs")
+@RequestMapping(path = "api/1.0/cntrs")
 @Validated
 public class CntrController {
     private final CntrServiceImp cntrService;

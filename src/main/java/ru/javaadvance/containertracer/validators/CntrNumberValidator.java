@@ -3,10 +3,11 @@ package ru.javaadvance.containertracer.validators;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class CntrNumValidator implements ConstraintValidator<CntrNumberVal, String> {
+public class CntrNumberValidator implements ConstraintValidator<CntrNumberVal, String> {
 
     @Override
     public void initialize(CntrNumberVal cntrNumberVal) {
+
         ConstraintValidator.super.initialize(cntrNumberVal);
     }
 
