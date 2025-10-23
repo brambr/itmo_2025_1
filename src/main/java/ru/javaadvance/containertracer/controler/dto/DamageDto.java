@@ -18,7 +18,7 @@ public class DamageDto {
     private Integer location;
     private Integer sizeInCm;
     private  String repairNumber;
-    @DamageRepairTimeVal(message = "Дата ремонта раньше даты создания повреждения")
+    @DamageRepairTimeVal(message = "Дата ремонта находиться в будущем")
     private LocalDate repairDate;
     private LocalDate addDate;
 

@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import ru.javaadvance.containertracer.controler.dto.DamageDto;
+import ru.javaadvance.containertracer.controler.dto.LocationDto;
 import ru.javaadvance.containertracer.repository.entity.Damage;
 import ru.javaadvance.containertracer.service.DamageService;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "api/1.0/damages")
+@RequestMapping(path = "/api/v1/damages")
 @Validated
 public class DamageController {
     private final DamageService damageService;
@@ -25,10 +26,13 @@ public class DamageController {
 
 
     @GetMapping
-    public List<Damage> getDamageDto() {
-        return damageService.findAll().stream().map(damage -> mapper.map(damage, Damage.class)).toList();
+    public List<DamageDto> getDamageDto() {
+        return damageService.findAll().stream().map(damage -> mapper.map(damage, DamageDto.class)).toList();
     }
-
+    @GetMapping("/{id}")
+    public  DamageDto getDamageDtoById(@PathVariable Long id) {
+        return mapper.map(damageService.findById(id), DamageDto.class);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

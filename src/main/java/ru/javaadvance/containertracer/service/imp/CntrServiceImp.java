@@ -1,5 +1,6 @@
 package ru.javaadvance.containertracer.service.imp;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,16 @@ public class CntrServiceImp implements CntrService {
     @Override
     @Transactional(readOnly = true)
     public List<Cntr> findAll() {
-        return cntrRepository.findAll();
+        Optional<List<Cntr>> cntrList = Optional.of(cntrRepository.findAll());
+        return cntrList.get();
     }
 
+    @Override
     @Transactional
+    public Cntr findById(Long id){
+        Optional<Cntr> cntr = cntrRepository.findById(id);
+        return cntr.get();
+    }
     @Override
     public Cntr create(Cntr cntr) {
         Optional<Cntr> optionalCntr = Optional.ofNullable(cntrRepository.findByNumber(cntr.getNumber()));
@@ -39,7 +46,7 @@ public class CntrServiceImp implements CntrService {
         if (cntrRepository.existsById(id)) {
             cntrRepository.deleteById(id);
         } else {
-            throw new IllegalStateException("Контейнер с таким ID=" + id + " отсутсвует");
+            throw new EntityNotFoundException(String.valueOf(id));
         }
     }
 
@@ -53,7 +60,7 @@ public class CntrServiceImp implements CntrService {
                     cntrFromDb.setNumber(cntrFromDb.getNumber().toUpperCase());
                     cntrRepository.save(cntrFromDb);
                  } else {
-                throw new IllegalStateException("Контейнер с таким ID отсутсвует");
+                    throw new EntityNotFoundException(String.valueOf(cntr.getId()));
                   }
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());

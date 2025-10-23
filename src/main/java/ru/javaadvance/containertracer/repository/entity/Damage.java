@@ -28,7 +28,7 @@ public class Damage{
     @Column(name = "repair_number")
     private  String repairNumber;
     @Column(name = "repair_date")
-    @DamageRepairTimeVal(message = "Дата ремонта раньше даты создания повреждения")
+    @DamageRepairTimeVal(message = "Дата ремонта находиться в будущем")
     private LocalDate repairDate;
     @Column(name = "add_date")
     private LocalDate addDate;

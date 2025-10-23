@@ -1,5 +1,6 @@
 package ru.javaadvance.containertracer.service.imp;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +19,14 @@ public class DamageServiceImp implements DamageService {
     @Transactional(readOnly = true)
     @Override
     public List<Damage> findAll() {
+
         return damageRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
     public Damage findById(Long id) {
+
         return damageRepository.findById(id).orElse(null);
     }
 
@@ -40,7 +43,7 @@ public class DamageServiceImp implements DamageService {
         if (damageRepository.existsById(id)) {
             damageRepository.deleteById(id);
         } else {
-            throw new IllegalStateException("Повреждение с таким ID=" + id + " отсутсвует");
+            throw new EntityNotFoundException(String.valueOf(id));
         }
 
     }
@@ -50,7 +53,7 @@ public class DamageServiceImp implements DamageService {
         if (damageRepository.existsById(damage.getId())) {
             damageRepository.save(damage);
         } else {
-            throw new IllegalStateException("Повреждение  с таким ID=" + damage.getId()+ " отсутсвует");
+            throw new EntityNotFoundException(String.valueOf( damage.getId()));
         }
     }
 }

@@ -7,17 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.javaadvance.containertracer.controler.dto.CntrDto;
+import ru.javaadvance.containertracer.controler.dto.LocationDto;
 import ru.javaadvance.containertracer.repository.entity.Cntr;
 import ru.javaadvance.containertracer.service.imp.CntrServiceImp;
 
@@ -25,7 +17,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "api/1.0/cntrs")
+@RequestMapping(path = "/api/v1/cntrs")
 @Validated
 public class CntrController {
     private final CntrServiceImp cntrService;
@@ -36,12 +28,16 @@ public class CntrController {
     public List<CntrDto> getCntrDto() {
        return cntrService.findAll().stream().map( cntr-> mapper.map(cntr, CntrDto.class)).toList();
     }
+    @GetMapping("/{id}")
+    public CntrDto getCntrDtoById(@PathVariable Long id) {
+        return mapper.map(cntrService.findById(id), CntrDto.class);
+    }
+
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cntr create(@NotNull @Valid @RequestBody CntrDto cntrDto) {
-
        return cntrService.create(mapper.map(cntrDto, Cntr.class));
     }
 
