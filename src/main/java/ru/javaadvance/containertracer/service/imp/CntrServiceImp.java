@@ -28,8 +28,15 @@ public class CntrServiceImp implements CntrService {
     @Transactional
     public Cntr findById(Long id){
         Optional<Cntr> cntr = cntrRepository.findById(id);
-        return cntr.get();
+        return cntr.orElse(null);
     }
+
+    @Transactional
+    public Cntr findByNumber(String number){
+        Optional<Cntr> cntr= Optional.ofNullable(cntrRepository.findByNumber(number));
+        return cntr.orElse(null) ;
+    }
+
     @Override
     public Cntr create(Cntr cntr) {
         Optional<Cntr> optionalCntr = Optional.ofNullable(cntrRepository.findByNumber(cntr.getNumber()));

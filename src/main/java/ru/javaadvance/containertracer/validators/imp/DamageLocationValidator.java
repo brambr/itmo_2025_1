@@ -1,8 +1,8 @@
-package ru.javaadvance.containertracer.validators;
+package ru.javaadvance.containertracer.validators.imp;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-
+import ru.javaadvance.containertracer.validators.DamageLocationVal;
 
 
 public class DamageLocationValidator implements ConstraintValidator <DamageLocationVal, Integer>{

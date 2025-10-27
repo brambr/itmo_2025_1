@@ -10,6 +10,8 @@ public interface CntrService {
 
     Cntr findById(Long id);
 
+    Cntr findByNumber(String number);
+
     Cntr create(Cntr cntr);
 
     void delete(Long id);

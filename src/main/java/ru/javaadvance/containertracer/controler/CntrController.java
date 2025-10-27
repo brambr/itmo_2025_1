@@ -33,6 +33,10 @@ public class CntrController {
         return mapper.map(cntrService.findById(id), CntrDto.class);
     }
 
+    @GetMapping(value = "", params ="number")
+    public CntrDto getCntrDtoByNumber (@RequestParam String number) {
+        return mapper.map(cntrService.findByNumber(number), CntrDto.class);
+    }
 
 
     @PostMapping

@@ -1,12 +1,11 @@
 package ru.javaadvance.containertracer.controler.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.javaadvance.containertracer.validators.CntrNumberVal;
 
-
-@Getter
-@Setter
+@NoArgsConstructor
 public class CntrDto {
 
     private Long id;
@@ -17,4 +16,13 @@ public class CntrDto {
     private String type;
     private Integer tareWeight;
     private Integer maxPayLoad;
+
+    public CntrDto(String number, String iso, String size, String type, Integer tareWeight, Integer maxPayLoad) {
+        this.number = number;
+        this.iso = iso;
+        this.size = size;
+        this.type = type;
+        this.tareWeight = tareWeight;
+        this.maxPayLoad = maxPayLoad;
+    }
 }

@@ -1,10 +1,9 @@
-package ru.javaadvance.containertracer.validators;
+package ru.javaadvance.containertracer.validators.imp;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import ru.javaadvance.containertracer.repository.entity.Damage;
+import ru.javaadvance.containertracer.validators.DamageRepairTimeVal;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 
 public class DamageRepairTimeValidator implements ConstraintValidator<DamageRepairTimeVal, LocalDate> {
