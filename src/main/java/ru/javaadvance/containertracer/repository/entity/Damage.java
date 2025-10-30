@@ -1,11 +1,6 @@
 package ru.javaadvance.containertracer.repository.entity;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import ru.javaadvance.containertracer.validators.DamageLocationVal;
 import ru.javaadvance.containertracer.validators.DamageRepairTimeVal;
@@ -32,6 +27,7 @@ public class Damage{
     private LocalDate repairDate;
     @Column(name = "add_date")
     private LocalDate addDate;
+    private Long cntrPassId;
 
 
 }

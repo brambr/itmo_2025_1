@@ -21,5 +21,6 @@ public class DamageDto {
     @DamageRepairTimeVal(message = "Дата ремонта находиться в будущем")
     private LocalDate repairDate;
     private LocalDate addDate;
+    private Long cntr_id;
 
 }

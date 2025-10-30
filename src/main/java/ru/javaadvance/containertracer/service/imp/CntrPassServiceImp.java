@@ -1,5 +1,6 @@
 package ru.javaadvance.containertracer.service.imp;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +39,29 @@ public class CntrPassServiceImp implements CntrPassService {
         return cntrPassRepository.save(cntrPass);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
+        if (cntrPassRepository.existsById(id)) {
+            cntrPassRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(String.valueOf(id));
+        }
+    }
 
+    @Transactional
+    @Override
+    public void update(CntrPass cntrPass) {
+        try {
+            if (cntrPassRepository.existsById(cntrPass.getId())) {
+                CntrPass cntrPassFromDb = cntrPassRepository.findById(cntrPass.getId()).get();
+                cntrPassFromDb = (cntrPass);
+                cntrPassRepository.save(cntrPassFromDb);
+            } else {
+                throw new EntityNotFoundException(String.valueOf(cntrPass.getId()));
+            }
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

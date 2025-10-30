@@ -26,5 +26,4 @@ public class Cntr {
     private Integer tareWeight;
     @Column(name = "max_payload")
     private Integer maxPayLoad;
-
 }

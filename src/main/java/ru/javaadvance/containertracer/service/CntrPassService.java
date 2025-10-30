@@ -13,4 +13,6 @@ public interface CntrPassService {
     CntrPass create(CntrPass cntrPass);
 
     void delete(Long id);
+
+    void update(CntrPass map);
 }
