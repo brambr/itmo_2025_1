@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import lombok.Data;
-import ru.javaadvance.containertracer.validators.CntrNumberVal;
+import ru.javaadvance.containertracer.validators.CntrNumberValidator;
 
 
 @Entity
@@ -17,7 +17,7 @@ public class Cntr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CntrNumberVal(message = "Номер контейнера не коректный")
+    @CntrNumberValidator(message = "Номер контейнера не коректный")
     private String number;
     private String iso;
     private String size;

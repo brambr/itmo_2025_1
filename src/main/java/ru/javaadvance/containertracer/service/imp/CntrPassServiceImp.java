@@ -8,6 +8,7 @@ import ru.javaadvance.containertracer.repository.CntrPassRepository;
 import ru.javaadvance.containertracer.repository.entity.Cntr;
 import ru.javaadvance.containertracer.repository.entity.CntrPass;
 import ru.javaadvance.containertracer.service.CntrPassService;
+import ru.javaadvance.containertracer.service.CntrService;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CntrPassServiceImp implements CntrPassService {
     private final CntrPassRepository cntrPassRepository;
-
+    private final CntrService cntrService;
 
     @Override
     @Transactional(readOnly = true)
@@ -31,6 +32,26 @@ public class CntrPassServiceImp implements CntrPassService {
         Optional<CntrPass> cntrPass = cntrPassRepository.findById(id);
         return cntrPass.orElse(null);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public CntrPass findByCntrNumber(Long id) {
+        Optional<CntrPass> cntrPass = Optional.ofNullable(cntrPassRepository.findByCntrId(id));
+        return cntrPass.orElse(null);
+    }
+
+
+    @Transactional(readOnly = true)
+    @Override
+    public CntrPass findByCntrNumber(String number) {
+        Optional<Cntr> cntr = Optional.ofNullable(cntrService.findByNumber(number));
+        if (cntr.isPresent()){
+            Optional<CntrPass> cntrPass = Optional.ofNullable(cntrPassRepository.findByCntrId(cntr.get().getId()));
+            return cntrPass.orElse(null);
+        }
+        return null;
+    }
+
 
     @Override
     @Transactional

@@ -1,15 +1,13 @@
 package ru.javaadvance.containertracer.controler.dto;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import ru.javaadvance.containertracer.validators.CntrNumberVal;
+import ru.javaadvance.containertracer.validators.CntrNumberValidator;
 
 @NoArgsConstructor
 public class CntrDto {
 
     private Long id;
-    @CntrNumberVal(message = "Номер контейнера некоректный")
+    @CntrNumberValidator(message = "Номер контейнера некоректный")
     private String number;
     private String iso;
     private String size;

@@ -7,7 +7,6 @@ import ru.javaadvance.containertracer.repository.entity.Cntr;
 import ru.javaadvance.containertracer.repository.entity.Damage;
 import ru.javaadvance.containertracer.repository.entity.LegalEntity;
 import ru.javaadvance.containertracer.repository.entity.Location;
-import ru.javaadvance.containertracer.validators.CntrNumberVal;
 
 import java.util.List;
 

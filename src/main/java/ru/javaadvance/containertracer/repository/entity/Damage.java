@@ -2,8 +2,8 @@ package ru.javaadvance.containertracer.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import ru.javaadvance.containertracer.validators.DamageLocationVal;
-import ru.javaadvance.containertracer.validators.DamageRepairTimeVal;
+import ru.javaadvance.containertracer.validators.DamageLocationValidator;
+import ru.javaadvance.containertracer.validators.DamageRepairTimeValidator;
 
 import java.time.LocalDate;
 
@@ -16,14 +16,14 @@ public class Damage{
     private Long id;
     private Integer code;
     private String description;
-    @DamageLocationVal(message = "Location code has wrong format")
+    @DamageLocationValidator(message = "Location code has wrong format")
     private Integer location;
     @Column(name = "size_in_cm")
     private Integer sizeInCm;
     @Column(name = "repair_number")
     private  String repairNumber;
     @Column(name = "repair_date")
-    @DamageRepairTimeVal(message = "Дата ремонта находиться в будущем")
+    @DamageRepairTimeValidator(message = "Дата ремонта находиться в будущем")
     private LocalDate repairDate;
     @Column(name = "add_date")
     private LocalDate addDate;
