@@ -44,7 +44,7 @@ public class LegalEntityController {
     public LegalEntity create(@NotNull @Valid @RequestBody LegalEntityDto legalEntityDto) {
         return legalEntityService.create(mapper.map(legalEntityDto, LegalEntity.class));
     }
-    @Hidden
+
     @DeleteMapping(path = "{id}")
     @Operation(summary= "Удаление оператора",description = "Удалеие оператора по ID")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

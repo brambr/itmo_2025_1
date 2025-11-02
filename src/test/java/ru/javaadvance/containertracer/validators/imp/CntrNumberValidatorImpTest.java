@@ -2,6 +2,7 @@ package ru.javaadvance.containertracer.validators.imp;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,6 +30,7 @@ public class CntrNumberValidatorImpTest {
         boolean result = (boolean) isNumberLengthOkMethod.invoke(cntrNumberValidatorImp, "CNTR12345678");
         assertFalse(result);
     }
+
     @Test
     @DisplayName("Проверка префикса  номера контейнера-позитивный")
     public void testIsPrefixOk() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -55,6 +57,7 @@ public class CntrNumberValidatorImpTest {
         boolean result = (boolean) isSuffixOkMethod.invoke(cntrNumberValidatorImp, "CNTR1234567");
         assertTrue(result);
     }
+
     @Test
     @DisplayName("Проверка суфикса номера контейнера-негативный")
     public void testIsSuffixТщеOk() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

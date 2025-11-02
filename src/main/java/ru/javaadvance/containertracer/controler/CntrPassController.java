@@ -54,7 +54,7 @@ public class CntrPassController {
         return cntrPassService.create(mapper.map(cntrPassDto, CntrPass.class));
     }
 
-    @Hidden
+
     @Operation(summary = "Удаление паспорта контейнера", description = "Удаление паспорта контейнера со всеми вхождениями")
     @DeleteMapping(path = "{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

@@ -44,7 +44,7 @@ public class locationController {
         return locationService.create(mapper.map(locationDto, Location.class));
     }
 
-    @Hidden
+
     @DeleteMapping(path = "{id}")
     @Operation(summary= "Удаление локации",description = "Удаление локации по ID")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

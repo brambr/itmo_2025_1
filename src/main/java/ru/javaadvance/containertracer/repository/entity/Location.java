@@ -8,6 +8,9 @@ import jakarta.persistence.GenerationType;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import ru.javaadvance.containertracer.validators.LocationCoordinateValidation;
 
 
 @Entity
@@ -18,6 +21,9 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String address;
+    @LocationCoordinateValidation
     private Double latitude;
+    @LocationCoordinateValidation
     private Double longitude;
+
 }

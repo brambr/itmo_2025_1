@@ -43,7 +43,7 @@ public class DamageController {
     public Damage create(@NotNull @Valid @RequestBody DamageDto damageDto) {
         return damageService.create(mapper.map(damageDto, Damage.class));
     }
-    @Hidden
+
     @DeleteMapping(path = "{id}")
     @Operation(summary= "Удаление несохранности",description = "Удаление повреждения по ID")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

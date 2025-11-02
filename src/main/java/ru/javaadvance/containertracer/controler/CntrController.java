@@ -51,7 +51,7 @@ public class CntrController {
     public Cntr create(@NotNull @Valid @RequestBody CntrDto cntrDto) {
         return cntrService.create(mapper.map(cntrDto, Cntr.class));
     }
-    @Hidden
+
     @DeleteMapping(path = "{id}")
     @Operation(summary= "Удаление контейнера по ID",description = "Удаление контейнера по ID")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
