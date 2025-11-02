@@ -20,7 +20,8 @@ public class DamageDto {
     private  String repairNumber;
     @DamageRepairTimeValidator(message = "Дата ремонта находиться в будущем")
     private LocalDate repairDate;
-    private LocalDate addDate;
+    private String repairResult;
+    private LocalDate damageAddDate;
     private Long cntr_id;
 
 }

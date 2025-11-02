@@ -27,7 +27,10 @@ public class Damage{
     private LocalDate repairDate;
     @Column(name = "add_date")
     private LocalDate addDate;
+    @Column(name = "repair_result")
+    private String repairResult;
     private Long cntrPassId;
+
 
 
 }
