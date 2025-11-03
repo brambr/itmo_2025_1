@@ -29,14 +29,10 @@ public class LocationCoordinateValidationImp implements ConstraintValidator<Loca
             }
         }
         private boolean isLocationCoordinateOk(Double location) {
-            String locationValue= String.format("%.6f", location);
-            if (location == null||locationValue.length()!=16) {
+            String locationValue= String.format("9f.6f", location);
+            if (location == null||locationValue.length()<=16) {
             return false;
              }
-
-            if (locationValue.indexOf(',')!=9){
-                return false;
-            }
             return true;
     }
 }

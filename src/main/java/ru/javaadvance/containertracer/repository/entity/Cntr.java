@@ -11,13 +11,12 @@ import ru.javaadvance.containertracer.validators.CntrNumberValidator;
 
 
 @Entity
-@Table(name = "containers")
+@Table(name = "container")
 @Data
 public class Cntr {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @CntrNumberValidator(message = "Номер контейнера не коректный")
     private String number;
     private String iso;
     private String size;

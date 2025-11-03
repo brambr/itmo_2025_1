@@ -1,6 +1,5 @@
 package ru.javaadvance.containertracer.controler;
 
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,7 +22,7 @@ import java.util.List;
 @RequestMapping(path = "/api/v1/locations")
 @Validated
 @Tag(name="Локация",description="Контролер для CRUD операций с локациями")
-public class locationController {
+public class LocationController {
     private final ModelMapper mapper;
     private final LocationService locationService;
 
