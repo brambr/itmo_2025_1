@@ -23,14 +23,16 @@ public class CntrPassDto {
     private Location location;
     private LocalDate startOperationDate;
     private LocalDate endOperationDate;
+    private Double distance;
 
-    public CntrPassDto(Cntr cntr, List<Damage> damage, LegalEntity legalEntity, Location location, LocalDate startOperationDate, LocalDate endOperationDate) {
-        this.cntr = cntr;
-        this.damage = damage;
-        this.legalEntity = legalEntity;
-        this.location = location;
-        this.startOperationDate = startOperationDate;
+
+    public CntrPassDto(Double distance, LocalDate endOperationDate, LocalDate startOperationDate, Location location, LegalEntity legalEntity, List<Damage> damage, Cntr cntr) {
+        this.distance = distance;
         this.endOperationDate = endOperationDate;
-
+        this.startOperationDate = startOperationDate;
+        this.location = location;
+        this.legalEntity = legalEntity;
+        this.damage = damage;
+        this.cntr = cntr;
     }
 }

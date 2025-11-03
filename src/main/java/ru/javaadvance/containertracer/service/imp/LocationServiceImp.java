@@ -22,6 +22,7 @@ public class LocationServiceImp implements LocationService {
     public List<Location> findAll() {
         return locationRepository.findAll();
     }
+
     @Transactional( readOnly = true)
     @Override
     public Location findById(Long id) {

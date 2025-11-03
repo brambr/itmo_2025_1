@@ -8,7 +8,7 @@ import ru.javaadvance.containertracer.validators.DamageRepairTimeValidator;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "damages")
+@Table(name = "damage")
 @Data
 public class Damage{
     @Id
@@ -23,7 +23,6 @@ public class Damage{
     @Column(name = "repair_number")
     private  String repairNumber;
     @Column(name = "repair_date")
-    @DamageRepairTimeValidator(message = "Дата ремонта находиться в будущем")
     private LocalDate repairDate;
     @Column(name = "add_date")
     private LocalDate addDate;

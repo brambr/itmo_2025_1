@@ -1,14 +1,18 @@
 package ru.javaadvance.containertracer.service.imp;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaadvance.containertracer.repository.CntrPassRepository;
 import ru.javaadvance.containertracer.repository.entity.Cntr;
 import ru.javaadvance.containertracer.repository.entity.CntrPass;
+import ru.javaadvance.containertracer.repository.entity.Location;
 import ru.javaadvance.containertracer.service.CntrPassService;
 import ru.javaadvance.containertracer.service.CntrService;
+import ru.javaadvance.containertracer.service.DistanceCalc;
+import ru.javaadvance.containertracer.service.LocationService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +22,9 @@ import java.util.Optional;
 public class CntrPassServiceImp implements CntrPassService {
     private final CntrPassRepository cntrPassRepository;
     private final CntrService cntrService;
+    private final DistanceCalc distanceCalc;
+
+
 
     @Override
     @Transactional(readOnly = true)
@@ -76,7 +83,10 @@ public class CntrPassServiceImp implements CntrPassService {
         try {
             if (cntrPassRepository.existsById(cntrPass.getId())) {
                 CntrPass cntrPassFromDb = cntrPassRepository.findById(cntrPass.getId()).get();
+                Double newDistance = distanceCalc.getDistance(cntrPass.getLocation(), cntrPassFromDb.getLocation());
+                cntrPass.setDistance( cntrPass.getDistance() + newDistance);
                 cntrPassFromDb = (cntrPass);
+
                 cntrPassRepository.save(cntrPassFromDb);
             } else {
                 throw new EntityNotFoundException(String.valueOf(cntrPass.getId()));
@@ -85,4 +95,5 @@ public class CntrPassServiceImp implements CntrPassService {
             System.out.println(ex.getMessage());
         }
     }
+
 }

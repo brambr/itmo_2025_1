@@ -9,8 +9,8 @@ import ru.javaadvance.containertracer.validators.LocationCoordinateValidation;
 public class LocationDto {
     private Long id;
     private String address;
-    @LocationCoordinateValidation
+   // @LocationCoordinateValidation
     private Double latitude;
-    @LocationCoordinateValidation
+    //@LocationCoordinateValidation
     private Double longitude;
 }

@@ -14,4 +14,6 @@ public interface LocationService {
     void delete(Long id);
 
     void update(Location  location);
+
+
 }
